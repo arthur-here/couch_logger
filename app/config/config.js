@@ -2,6 +2,7 @@ export default {
   name: 'Logger',
   environment: 'dev',
   port: 3000,
-  base_url: 'http://localhost:3000',
-  api_version: 'v1'
+  baseUrl: 'http://localhost:3000',
+  apiVersion: 'v1',
+  dbUrl: 'http://admin:admin@localhost:5984'
 };
