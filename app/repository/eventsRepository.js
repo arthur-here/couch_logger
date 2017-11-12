@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 const eventsRepository = (db) => {
-  const addEvent = (event) => {
+  const createEvent = (event) => {
     event.type = 'event';
     return Promise.promisify(db.insert)(event);
   };
@@ -15,9 +15,19 @@ const eventsRepository = (db) => {
       });
   };
 
+  const eventsByUser = (userID) => {
+    return Promise.promisify(db.view)('logger', 'events-by-user', { key: userID })
+      .then((eventsData) => {
+        return eventsData.rows.map((eventRow) => {
+          return eventRow.value;
+        });
+      });
+  };
+
   return {
-    addEvent: addEvent,
-    allEvents: allEvents
+    createEvent: createEvent,
+    allEvents: allEvents,
+    eventsByUser: eventsByUser
   };
 };
 
