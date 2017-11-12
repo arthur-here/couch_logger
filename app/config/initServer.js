@@ -1,11 +1,13 @@
-import restify from 'restify';
+import express from 'express';
+import bodyParser from 'body-parser';
+import morganLogger from 'morgan';
 
 const initServer = () => {
-  const server = restify.createServer();
+  const server = express();
 
-  server.use(restify.plugins.bodyParser());
-  server.use(restify.plugins.queryParser());
-  server.use(restify.plugins.requestLogger());
+  server.use(bodyParser.json());
+  server.use(bodyParser.urlencoded({ extended: false }));
+  server.use(morganLogger('dev'));
 
   return server;
 };
