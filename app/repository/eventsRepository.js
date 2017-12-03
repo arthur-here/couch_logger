@@ -10,8 +10,18 @@ const eventsRepository = (db) => {
     return Promise.promisify(db.view)('logger', 'all-events')
       .then((eventsData) => {
         return eventsData.rows.map((eventRow) => {
-          return eventRow.key;
+          return eventRow.value;
         });
+      });
+  };
+
+  const eventByID = (eventID) => {
+    return Promise.promisify(db.view)('logger', 'all-events', { key: eventID })
+      .then((eventsData) => {
+        return eventsData.rows
+          .map((eventRow) => {
+            return eventRow.value;
+          })[0];
       });
   };
 
@@ -27,6 +37,7 @@ const eventsRepository = (db) => {
   return {
     createEvent: createEvent,
     allEvents: allEvents,
+    eventByID: eventByID,
     eventsByUser: eventsByUser
   };
 };

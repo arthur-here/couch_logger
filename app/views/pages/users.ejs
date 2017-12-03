@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+
+<header>
+  <% activeNavBar = 'Users' %>
+  <% include ../partials/header %>
+</header>
+
+<body>
+
+<main>
+  <div class = "container">
+  
+    <h1 style="margin: 20px;">List of users:</h1>
+    
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% users.forEach(function(user) { %>
+        <tr>
+          <td>
+            <a
+            href=<%= user.eventsByUserLink %>
+            >
+              <%= user.id %>
+            </a>
+          </td>
+          <td><%= user.name %></td>
+        </tr>
+      <% }); %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

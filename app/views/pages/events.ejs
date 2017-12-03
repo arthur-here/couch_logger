@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+
+<header>
+  <% activeNavBar = 'Events' %>
+  <% include ../partials/header %>
+</header>
+
+<body>
+
+<main>
+  <div class = "container">
+  
+    <h1 style="margin: 20px;">List of events:</h1>
+
+    
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Time</th>
+          <th scope="col">Name</th>
+          <th scope="col">Level</th>
+          <th scope="col">User</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      <% events.forEach(function(event) { %>
+        <tr
+          class=<%= event.color %>
+        >
+          <td><%= event.time %></td>
+          <td> 
+            <a 
+            class=<%= event.color %> 
+            href=<%= event.eventLink %>>
+              <%= event.name %>
+            </a>
+          </td>
+          <td><%= event.logLevel %></td>
+          <td><%= event.user %></td>
+        </tr>
+      <% }); %>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer>
+  <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../partials/head %>
+</head>
+
+<header>
+  <% activeNavBar = 'Events' %>
+  <% include ../partials/header %>
+</header>
+
+<body>
+
+<main>
+  <div class = "container">
+  
+    <h1 style="margin: 20px;">Event Info:</h1>
+
+    <table class="table table-bordered">
+      <tbody>
+        <% properties.forEach(function(property) { %>
+          <tr>
+            <td><%= property.name %></td>
+            <td><%= property.value %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    
+  </div>
+</main>
+
+<footer>
+  <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

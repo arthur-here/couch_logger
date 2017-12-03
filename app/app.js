@@ -12,7 +12,7 @@ initDB()
     return controllers(repositories);
   })
   .then((controllers) => {
-    let server = initServer();
+    let server = initServer(__dirname);
     setupRoutes(server, controllers);
     return server;
   })

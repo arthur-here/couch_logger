@@ -5,6 +5,7 @@ const setupRoutes = (app, controllers) => {
 
   router.post('/events', controllers.events.post);
   router.get('/events', controllers.events.get);
+  router.get('/events/:eventID', controllers.events.getByID);
   router.post('/users', controllers.users.post);
   router.get('/users', controllers.users.get);
   router.get('/users/:userID', controllers.users.getByID);
