@@ -85,19 +85,36 @@ const eventsController = (eventsRepository, usersRepository) => {
     const getEvents = () => {
       return parseUserIDFromRequest(req)
         .then((userID) => {
+          let events;
           if (userID) {
-            return eventsByUser(userID);
+            events = eventsByUser(userID);
           } else {
-            return allEvents();
+            events = allEvents();
           }
-        })
-        .then(sortEvents)
-        .then(mapToViewModels);
+
+          return events
+            .then(sortEvents)
+            .then(mapToViewModels)
+            .then((events) => {
+              if (userID) {
+                return {
+                  pageName: 'pages/events-by-user',
+                  userID: userID,
+                  events: events
+                };
+              } else {
+                return {
+                  pageName: 'pages/events',
+                  events: events
+                };
+              }
+            });
+        });
     };
 
     try {
       const result = await getEvents();
-      res.render('pages/events', { events: result });
+      res.render(result.pageName, result);
     } catch (e) {
       res.send({ 'error': e });
     };
@@ -125,8 +142,8 @@ const eventsController = (eventsRepository, usersRepository) => {
         'timestamp': event.time,
         'user.id': event.userID,
         'message': event.message,
-        'platform': event.platform,
-        'client.version': event.clientVersion,
+        'platform': event.client.platform,
+        'client.version': event.client.version,
         'custom': event.custom
       };
 

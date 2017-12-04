@@ -1,0 +1,32 @@
+<table class="table table-hover">
+<thead class="thead-dark">
+  <tr>
+    <th scope="col"></th>
+    <th scope="col">Time</th>
+    <th scope="col">Name</th>
+    <th scope="col">Level</th>
+    <th scope="col">User</th>
+  </tr>
+</thead>
+
+<tbody>
+<% events.forEach(function(event) { %>
+  <tr
+    class=<%= event.color %>
+  >
+    <td>
+      <a 
+      class="btn btn-primary" 
+      href=<%= event.eventLink %> 
+      role="button">
+        More Info
+      </a>
+    </td>
+    <td><%= event.time %></td>
+    <td> <%= event.name %> </td>
+    <td><%= event.logLevel %></td>
+    <td><%= event.user %></td>
+  </tr>
+<% }); %>
+</tbody>
+</table>
