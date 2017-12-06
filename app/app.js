@@ -1,3 +1,4 @@
+import config from './config/config';
 import initDB from './config/initDB';
 import initServer from './config/initServer';
 import repositories from './repository';
@@ -17,7 +18,7 @@ initDB()
     return server;
   })
   .then((server) => {
-    server.listen(3000, () => {
-      console.log('Listening on port 3000');
+    server.listen(config.port, () => {
+      console.log(`Listening on port ${config.port}`);
     });
   });
