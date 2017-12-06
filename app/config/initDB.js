@@ -21,8 +21,9 @@ export default () => {
   };
 
   const createViews = (db) => {
+    const documentID = '_design/logger';
     const views = {
-      '_id': '_design/logger',
+      '_id': documentID,
       'views': {
         'all-users': {
           'map': 'function (doc) {\n  if (doc.type === "user") {\n    emit(doc._id, doc); \n  }\n}'
@@ -37,9 +38,12 @@ export default () => {
       'language': 'javascript'
     };
 
-    return Promise.promisify(db.insert)(views)
+    const getDesignDocument = Promise.promisify(db.get);
+    const insertDesignDocument = Promise.promisify(db.insert);
+    return getDesignDocument(documentID)
       .catch((error) => {
         console.log(error);
+        return insertDesignDocument(views);
       })
       .then(() => { return db; });
   };
